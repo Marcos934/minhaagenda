@@ -14,7 +14,8 @@ public class AgendaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idContato;
+    @Column(name = "id_contato")
+    private Integer id;
 
     @Column(nullable = false, length = 85)
     private String nome;
