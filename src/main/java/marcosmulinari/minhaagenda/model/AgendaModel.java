@@ -1,58 +1,31 @@
 package marcosmulinari.minhaagenda.model;
 
-import jdk.jfr.Name;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity(name = "Agenda")
 public class AgendaModel {
 
     @Id
-    public Integer idContato;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idContato;
 
     @Column(nullable = false, length = 85)
-    public String nome;
+    private String nome;
 
     @Column(nullable = false, length = 1)
-    public String sexo;
+    private String sexo;
 
     @Column(nullable = false, length = 13)
-    public String telefone;
+    private String telefone;
 
     @Column(nullable = false, length = 85)
-    public String email;
+    private String email;
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
