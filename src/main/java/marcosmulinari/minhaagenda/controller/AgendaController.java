@@ -2,9 +2,11 @@ package marcosmulinari.minhaagenda.controller;
 
 import marcosmulinari.minhaagenda.model.AgendaModel;
 import marcosmulinari.minhaagenda.repository.AgendaRepository;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -57,7 +59,21 @@ public class AgendaController {
                 ).orElse(ResponseEntity.notFound().build());
     }
 
+    //Deletar contato da Agenda
+    @DeleteMapping(path = "/api/deletar",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity deletar(@RequestBody AgendaModel contato) {
+        return repository.findById(contato.getId())
+            .map(
+                    delete ->{
+                        repository.deleteById(contato.getId());
+                        return ResponseEntity.ok().build();
+                    }
+            ).orElse(ResponseEntity.notFound().build());
 
+    }
 
     //Busca Por ID do contato
     @GetMapping(path= "/api/buscar/{id}",
