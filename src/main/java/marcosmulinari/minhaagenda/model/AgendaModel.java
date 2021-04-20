@@ -9,7 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity(name = "Agenda")
+@Entity(name = "contatos")
 public class AgendaModel {
 
     @Id
