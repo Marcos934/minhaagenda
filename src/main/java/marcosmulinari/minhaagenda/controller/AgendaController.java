@@ -2,11 +2,10 @@ package marcosmulinari.minhaagenda.controller;
 
 import marcosmulinari.minhaagenda.model.AgendaModel;
 import marcosmulinari.minhaagenda.repository.AgendaRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +35,7 @@ public class AgendaController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
+    @ResponseStatus(HttpStatus.CREATED)
     public AgendaModel salvarContato(@RequestBody AgendaModel contato){
         return repository.save(contato);
     }
@@ -45,6 +45,7 @@ public class AgendaController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity atualizar(@RequestBody AgendaModel contato){
         return repository.findById(contato.getId())
                 .map(
@@ -69,7 +70,10 @@ public class AgendaController {
             .map(
                     delete ->{
                         repository.deleteById(contato.getId());
-                        return ResponseEntity.ok().build();
+
+                        return ResponseEntity.status(202)
+                                .build();
+
                     }
             ).orElse(ResponseEntity.notFound().build());
 
