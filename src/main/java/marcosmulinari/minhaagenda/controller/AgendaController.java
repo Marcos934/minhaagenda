@@ -3,6 +3,7 @@ package marcosmulinari.minhaagenda.controller;
 import marcosmulinari.minhaagenda.model.AgendaModel;
 import marcosmulinari.minhaagenda.repository.AgendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class AgendaController {
 
@@ -31,6 +33,7 @@ public class AgendaController {
     }
 
     //Cria novo contato na agenda
+    @CrossOrigin("*")
     @PostMapping(path = "/api/novo",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -61,10 +64,7 @@ public class AgendaController {
     }
 
     //Deletar contato da Agenda
-    @DeleteMapping(path = "/api/deletar",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @DeleteMapping(path = "/api/deletar")
     public ResponseEntity deletar(@RequestBody AgendaModel contato) {
         return repository.findById(contato.getId())
             .map(
@@ -80,6 +80,7 @@ public class AgendaController {
     }
 
     //Busca Por ID do contato
+    @CrossOrigin("*")
     @GetMapping(path= "/api/buscar/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
